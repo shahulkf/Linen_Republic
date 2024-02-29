@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "124605377629",
+    "project_id": "linen-republic",
+    "storage_bucket": "linen-republic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124605377629:android:3c00a44209ca450099b1b4",
+        "android_client_info": {
+          "package_name": "com.app.linen_republic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-g91RY4pjC3LQyAOPo9fLjibS83gSTuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

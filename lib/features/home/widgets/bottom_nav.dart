@@ -20,7 +20,8 @@ class BottomNav extends StatelessWidget {
           items: [
             BottomBarItem(iconData: Icons.home_outlined, label: 'Home'),
             BottomBarItem(iconData: Icons.shopping_bag_outlined, label: 'Cart'),
-            BottomBarItem(iconData: Icons.favorite, label: 'WishList'),
+            BottomBarItem(
+                iconData: Icons.favorite_border_rounded, label: 'WishList'),
             BottomBarItem(iconData: Icons.person_4_outlined, label: 'Account')
           ],
           color: ConstColor.blackColor,

@@ -9,7 +9,7 @@ class MainPage extends StatelessWidget {
   MainPage({super.key});
 
   final _pages = [
-     HomePage(),
+    const HomePage(),
     const CartPage(),
     const WishListPage(),
     const AccountPage()

@@ -1,4 +1,4 @@
-package com.example.linen_republic
+package com.app.linen_republic
 
 import io.flutter.embedding.android.FlutterActivity
 
