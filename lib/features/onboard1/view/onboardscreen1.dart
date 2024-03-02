@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:linen_republic/constants/colors/colors.dart';
 import 'package:linen_republic/constants/constants.dart';
 import 'package:linen_republic/features/authentication/view/login/login_screen.dart';
+import 'package:linen_republic/utils/responsive/responsive.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardScreenOne extends StatelessWidget {
@@ -44,7 +45,7 @@ class OnboardScreenOne extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginScreen(),
+                            builder: (context) => const LoginScreen(),
                           ));
                     },
                     child: const Text(
@@ -76,7 +77,7 @@ class OnBoardWidget extends StatelessWidget {
                 image: AssetImage(item['image']!), fit: BoxFit.cover),
             borderRadius: BorderRadius.circular(50),
           ),
-          height: 500,
+          height: Responsive.height * 0.5,
         ),
         height10,
         Text(

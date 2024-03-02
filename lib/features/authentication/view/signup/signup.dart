@@ -55,6 +55,9 @@ class SignUpScreen extends StatelessWidget {
               ),
               height30,
               BlocConsumer<AuthBlocBloc, AuthBlocState>(
+                listenWhen: (previous, current) =>
+                    current is SignUpErrorState || current is LoginErrorState,
+                buildWhen: (previous, current) => current is SignUpLoadingState,
                 listener: (context, state) {
                   if (state is SignUpSuccessState) {
                     Navigator.push(

@@ -11,6 +11,8 @@ class SingUpClickedEvent extends AuthBlocEvent {
 
 class LoginClickedEvent extends AuthBlocEvent {
   final LoginModel loginModel;
-  
+
   LoginClickedEvent({required this.loginModel});
 }
+
+class GoogleAuthEvent extends AuthBlocEvent {}

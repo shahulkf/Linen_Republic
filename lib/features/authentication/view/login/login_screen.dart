@@ -74,6 +74,9 @@ class LoginScreen extends StatelessWidget {
               ),
               height20,
               BlocConsumer<AuthBlocBloc, AuthBlocState>(
+                listenWhen: (previous, current) =>
+                    current is LoginErrorState || current is LoginSuccessState,
+                buildWhen: (previous, current) => current is LoginLoadingState,
                 listener: (context, state) {
                   if (state is LoginSuccessState) {
                     Navigator.pushAndRemoveUntil(
@@ -109,17 +112,45 @@ class LoginScreen extends StatelessWidget {
                 },
               ),
               height20,
-              CustomButton(
-                  backgroundColor: textColors,
-                  width: Responsive.width,
-                  child: const Text(
-                    'Continue with google',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 19),
-                  ),
-                  onTap: () {})
+              BlocConsumer<AuthBlocBloc, AuthBlocState>(
+                listenWhen: (previous, current) =>
+                    current is GoogleAuthSuccessState ||
+                    current is GoogleAuthErrorState,
+                buildWhen: (previous, current) =>
+                    current is GoogleAuthLoadingState,
+                listener: (context, state) {
+                  if (state is GoogleAuthSuccessState) {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MainPage(),
+                        ),
+                        (route) => false);
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(state.message)));
+                  } else if (state is GoogleAuthErrorState) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(state.message)));
+                  }
+                },
+                builder: (context, state) {
+                  return CustomButton(
+                      backgroundColor: textColors,
+                      width: Responsive.width,
+                      child: state is GoogleAuthLoadingState
+                          ? const CircularProgressIndicator()
+                          : const Text(
+                              'Continue with google',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 19),
+                            ),
+                      onTap: () {
+                        context.read<AuthBlocBloc>().add(GoogleAuthEvent());
+                      });
+                },
+              )
             ],
           ),
         ),

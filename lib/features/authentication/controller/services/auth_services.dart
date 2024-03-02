@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:linen_republic/features/authentication/controller/repository/auth_repo.dart';
 import 'package:linen_republic/features/authentication/model/login_model.dart';
 import 'package:linen_republic/features/authentication/model/sign_up_model.dart';
@@ -28,7 +29,6 @@ class AuthenticationServices implements AuthenticationRepository {
 
         default:
           return left('An error occurred. Please try again later.');
-      
       }
     }
   }
@@ -53,4 +53,24 @@ class AuthenticationServices implements AuthenticationRepository {
       }
     }
   }
+
+  @override
+  Future<Either<String, String>> googleAuth() async {
+    // TODO: implement googleAuth
+
+    try {
+      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+          accessToken: gAuth.accessToken, idToken: gAuth.idToken);
+
+      await _auth.signInWithCredential(credential);
+      return right('Google Signed In Successfully ');
+    } on FirebaseAuthException catch (e) {
+      return left(e.message.toString());
+    }
+  }
+
+  //
 }

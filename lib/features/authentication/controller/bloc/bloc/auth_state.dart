@@ -21,17 +21,27 @@ class SignUpErrorState extends AuthBlocState {
 
 // LOGINSTATE
 
-class LoginLoadingState extends AuthBlocState{}
+class LoginLoadingState extends AuthBlocState {}
 
-class LoginSuccessState extends AuthBlocState{
-
-final String message;
-LoginSuccessState({required this. message});
-
+class LoginSuccessState extends AuthBlocState {
+  final String message;
+  LoginSuccessState({required this.message});
 }
 
-class LoginErrorState extends AuthBlocState{
+class LoginErrorState extends AuthBlocState {
+  final String message;
+  LoginErrorState({required this.message});
+}
 
-final String message;
-LoginErrorState({required this.message});
+//google account
+class GoogleAuthLoadingState extends AuthBlocState {}
+
+class GoogleAuthSuccessState extends AuthBlocState {
+  final String message;
+  GoogleAuthSuccessState({required this.message});
+}
+
+class GoogleAuthErrorState extends AuthBlocState {
+  final String message;
+  GoogleAuthErrorState({required this.message});
 }

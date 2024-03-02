@@ -5,6 +5,7 @@ import 'package:linen_republic/constants/colors/colors.dart';
 import 'package:linen_republic/constants/constants.dart';
 import 'package:linen_republic/features/home/widgets/banner_widget.dart';
 import 'package:linen_republic/features/home/widgets/product_view_widget.dart';
+import 'package:linen_republic/utils/responsive/responsive.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,8 +19,8 @@ class HomePage extends StatelessWidget {
             ),
             actions: [
               Container(
-                height: 45,
-                width: 280,
+                height: Responsive.height * 0.05,
+                width: Responsive.width * 0.8,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                     color: Colors.grey.shade400),
@@ -40,9 +41,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 60,
-              ),
+              const Spacer(),
               IconButton(
                   onPressed: () {},
                   icon: const Icon(
@@ -103,7 +102,7 @@ class HomePage extends StatelessWidget {
                     itemCount: 5,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1.3 / 2.5, crossAxisCount: 2),
+                            childAspectRatio: 1 / 2.3, crossAxisCount: 2),
                     itemBuilder: (context, index) {
                       return const ProductViewWidget();
                     },
