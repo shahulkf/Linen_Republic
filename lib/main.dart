@@ -6,6 +6,8 @@ import 'package:linen_republic/features/authentication/controller/bloc/bloc/auth
 import 'package:linen_republic/features/authentication/controller/services/auth_services.dart';
 import 'package:linen_republic/features/home/view/main_page.dart';
 import 'package:linen_republic/features/onboard1/view/onboardscreen1.dart';
+import 'package:linen_republic/features/product/controller/bloc/product/product_bloc.dart';
+import 'package:linen_republic/features/product/controller/product_services/product_services.dart';
 import 'package:linen_republic/firebase_options.dart';
 import 'package:linen_republic/utils/responsive/responsive.dart';
 
@@ -27,7 +29,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AuthBlocBloc(AuthenticationServices()),
-        )
+        ),
+        BlocProvider(
+          create: (context) => ProductBloc(ProductServices()),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

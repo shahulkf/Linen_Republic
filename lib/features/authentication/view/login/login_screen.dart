@@ -76,7 +76,8 @@ class LoginScreen extends StatelessWidget {
               BlocConsumer<AuthBlocBloc, AuthBlocState>(
                 listenWhen: (previous, current) =>
                     current is LoginErrorState || current is LoginSuccessState,
-                buildWhen: (previous, current) => current is LoginLoadingState,
+                buildWhen: (previous, current) =>
+                    current is LoginLoadingState || current is LoginErrorState,
                 listener: (context, state) {
                   if (state is LoginSuccessState) {
                     Navigator.pushAndRemoveUntil(

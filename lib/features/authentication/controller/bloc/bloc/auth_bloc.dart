@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:linen_republic/features/authentication/controller/services/auth_services.dart';
 import 'package:linen_republic/features/authentication/model/login_model.dart';
 import 'package:linen_republic/features/authentication/model/sign_up_model.dart';
-import 'package:meta/meta.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

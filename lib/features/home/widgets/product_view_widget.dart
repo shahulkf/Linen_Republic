@@ -1,15 +1,17 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bottom_bar_matu/components/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:linen_republic/constants/colors/colors.dart';
 import 'package:linen_republic/constants/constants.dart';
+import 'package:linen_republic/features/home/model/product_model.dart';
 
 class ProductViewWidget extends StatelessWidget {
-  const ProductViewWidget({
-    super.key,
-  });
+  const ProductViewWidget({super.key, required this.product});
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+    print(product.image.first);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -24,50 +26,32 @@ class ProductViewWidget extends StatelessWidget {
             decoration: BoxDecoration(
                 color: colorGrey6,
                 borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
-                  image: AssetImage('assets/linen_shirt_1.jpeg'),
+                image: DecorationImage(
+                  image: NetworkImage(product.image.first),
                   fit: BoxFit.cover,
                 )),
           ),
         ),
         height10,
-        const Text(
-          'Linen Club',
-          style: TextStyle(
+        AutoSizeText(
+          product.title,
+          maxLines: 1,
+          minFontSize: 16,
+          style: const TextStyle(
               fontSize: 19, fontWeight: FontWeight.bold, color: colorGrey3),
         ),
-        const Text(
-          'Men Slim Fit Shirt with \nBand Collar',
-          style: TextStyle(fontSize: 16, color: colorGrey3),
+        AutoSizeText(
+          product.description,
+          style: const TextStyle(fontSize: 16, color: colorGrey3),
+          maxLines: 2,
         ),
-        const Text(
-          '999',
-          style: TextStyle(
+        Text(
+          "\$${product.price.toString()}",
+          style: const TextStyle(
               fontSize: 19,
               fontWeight: FontWeight.bold,
               color: ConstColor.blackColor),
         ),
-        Container(
-          height: 20,
-          width: 50,
-          decoration: BoxDecoration(
-              color: Colors.green, borderRadius: BorderRadius.circular(4)),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                '3.2',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-              ),
-              Icon(
-                Icons.star_outlined,
-                size: 16,
-                color: Colors.white,
-              )
-            ],
-          ),
-        )
       ],
     );
   }

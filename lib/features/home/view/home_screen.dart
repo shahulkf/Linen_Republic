@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:linen_republic/constants/colors/colors.dart';
 import 'package:linen_republic/constants/constants.dart';
 import 'package:linen_republic/features/home/widgets/banner_widget.dart';
 import 'package:linen_republic/features/home/widgets/product_view_widget.dart';
+import 'package:linen_republic/features/product/controller/bloc/product/product_bloc.dart';
+import 'package:linen_republic/features/product/view/product_details.dart';
 import 'package:linen_republic/utils/responsive/responsive.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,6 +15,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<ProductBloc>().add(FetchProductsEvent());
     return Scaffold(
         appBar: AppBar(
             leading: const Padding(
@@ -96,15 +100,39 @@ class HomePage extends StatelessWidget {
               height30,
               Padding(
                   padding: const EdgeInsets.only(left: 30),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 5,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1 / 2.3, crossAxisCount: 2),
-                    itemBuilder: (context, index) {
-                      return const ProductViewWidget();
+                  child: BlocBuilder<ProductBloc, ProductState>(
+                    builder: (context, state) {
+                      if (state is ProductFetchLoadingState) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is ProductFetchErrorState) {
+                        return Center(child: Text(state.message));
+                      } else if (state is ProductFetchSuccessState) {
+                        return GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.products.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  childAspectRatio: 1 / 2.0, crossAxisCount: 2),
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProductDetailScreen(
+                                                product: state.products[index]),
+                                      ));
+                                },
+                                child: ProductViewWidget(
+                                  product: state.products[index],
+                                ));
+                          },
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
                     },
                   ))
             ],
