@@ -2,6 +2,7 @@ import 'package:bottom_bar_matu/components/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:linen_republic/constants/app_strings/app_strings.dart';
 import 'package:linen_republic/constants/colors/colors.dart';
 import 'package:linen_republic/constants/constants.dart';
 import 'package:linen_republic/features/home/model/product_model.dart';
@@ -79,7 +80,7 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
                 height10,
                 Text(
-                  product.price.toString(),
+                  '${AppStrings.rupee}${product.price}',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 22),
                 ),

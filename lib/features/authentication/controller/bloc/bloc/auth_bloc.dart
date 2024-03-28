@@ -18,6 +18,9 @@ class AuthBlocBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
   final TextEditingController loginEmailController = TextEditingController();
   final TextEditingController loginPasswordController = TextEditingController();
 
+    final formKey = GlobalKey<FormState>();
+
+
   final AuthenticationServices authenticationServices;
 
   AuthBlocBloc(this.authenticationServices) : super(AuthBlocInitial()) {

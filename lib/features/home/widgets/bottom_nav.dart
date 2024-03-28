@@ -13,6 +13,7 @@ class BottomNav extends StatelessWidget {
       valueListenable: indexChangeNotifier,
       builder: (context, value, _) {
         return BottomBarDoubleBullet(
+          height: 60,
           selectedIndex: value,
           onSelect: (index) {
             indexChangeNotifier.value = index;

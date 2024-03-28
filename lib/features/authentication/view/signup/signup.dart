@@ -24,83 +24,98 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 150,
-              ),
+              const SizedBox(height: 150),
               Text(AppStrings.signUp, style: GoogleFonts.prata(fontSize: 35)),
               Text(AppStrings.signUpTitle,
                   style: GoogleFonts.prata(color: textColors)),
               height30,
-              TextFieldWidget(
-                  hintText: 'Username',
-                  prefixIcon: Icons.account_circle_outlined,
-                  controller: authBloc.userNameController),
-              height20,
-              TextFieldWidget(
-                  hintText: 'Email',
-                  prefixIcon: Icons.mail_outline_outlined,
-                  controller: authBloc.emailController),
-              height20,
-              TextFieldWidget(
-                  hintText: 'Password',
-                  prefixIcon: Icons.lock_outline,
-                  suffixIcon: Icons.visibility_off_outlined,
-                  controller: authBloc.passwordController),
-              height20,
-              TextFieldWidget(
-                hintText: 'Confirm Password',
-                prefixIcon: Icons.lock_outline,
-                controller: authBloc.confirmPasswordcontroller,
-                obscureText: true,
-              ),
+              _buildInputFields(authBloc),
               height30,
-              BlocConsumer<AuthBlocBloc, AuthBlocState>(
-                listenWhen: (previous, current) =>
-                    current is SignUpErrorState ||
-                    current is SignUpSuccessState,
-                buildWhen: (previous, current) => current is SignUpLoadingState,
-                listener: (context, state) {
-                  if (state is SignUpSuccessState) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MainPage(),
-                        ));
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(state.message)));
-                  } else if (state is SignUpErrorState) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(state.message)));
-                  }
-                },
-                builder: (context, state) {
-                  return CustomButton(
-                      width: Responsive.width,
-                      child: state is SignUpLoadingState
-                          ? const CircularProgressIndicator()
-                          : const Text(
-                              'SignUp',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19),
-                            ),
-                      onTap: () {
-                        // call the signup event
-                        print('sign up ');
-                        final signUpModel = SignUpModel(
-                            userName: authBloc.userNameController.text.trim(),
-                            email: authBloc.emailController.text.trim(),
-                            password: authBloc.passwordController.text.trim());
-                        context
-                            .read<AuthBlocBloc>()
-                            .add(SingUpClickedEvent(signUpModel: signUpModel));
-                      });
-                },
-              )
+              _buildSignUpButton(authBloc)
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  BlocConsumer<AuthBlocBloc, AuthBlocState> _buildSignUpButton(
+      AuthBlocBloc authBloc) {
+    return BlocConsumer<AuthBlocBloc, AuthBlocState>(
+      listenWhen: (previous, current) =>
+          current is SignUpErrorState || current is SignUpSuccessState,
+      buildWhen: (previous, current) =>
+          current is SignUpLoadingState || current is SignUpErrorState,
+      listener: (context, state) {
+        if (state is SignUpSuccessState) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MainPage(),
+              ));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.message)));
+        } else if (state is SignUpErrorState) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.message)));
+        }
+      },
+      builder: (context, state) {
+        return CustomButton(
+            width: Responsive.width,
+            child: state is SignUpLoadingState
+                ? const CircularProgressIndicator()
+                : const Text(
+                    'SignUp',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19),
+                  ),
+            onTap: () {
+              // call the signup event
+              if (authBloc.formKey.currentState!.validate()) {
+                final signUpModel = SignUpModel(
+                    userName: authBloc.userNameController.text.trim(),
+                    email: authBloc.emailController.text.trim(),
+                    password: authBloc.passwordController.text.trim());
+                context
+                    .read<AuthBlocBloc>()
+                    .add(SingUpClickedEvent(signUpModel: signUpModel));
+              }
+            });
+      },
+    );
+  }
+
+  Widget _buildInputFields(AuthBlocBloc authBloc) {
+    return Form(
+      key: authBloc.formKey,
+      child: Column(
+        children: [
+          TextFieldWidget(
+              hintText: 'Username',
+              prefixIcon: Icons.account_circle_outlined,
+              controller: authBloc.userNameController),
+          height20,
+          TextFieldWidget(
+              hintText: 'Email',
+              prefixIcon: Icons.mail_outline_outlined,
+              controller: authBloc.emailController),
+          height20,
+          TextFieldWidget(
+              hintText: 'Password',
+              prefixIcon: Icons.lock_outline,
+              suffixIcon: Icons.visibility_off_outlined,
+              controller: authBloc.passwordController),
+          height20,
+          TextFieldWidget(
+            hintText: 'Confirm Password',
+            prefixIcon: Icons.lock_outline,
+            controller: authBloc.confirmPasswordcontroller,
+            obscureText: true,
+          ),
+        ],
       ),
     );
   }
