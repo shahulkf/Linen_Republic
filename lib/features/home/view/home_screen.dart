@@ -27,7 +27,8 @@ class HomePage extends StatelessWidget {
               ),
               _buildSearchWidget(),
               const Spacer(),
-              _buildWishlistButton()
+              _buildWishlistButton(),
+              width5
             ]),
         body: SingleChildScrollView(
           child: Column(
@@ -140,7 +141,7 @@ class HomePage extends StatelessWidget {
   Container _buildSearchWidget() {
     return Container(
       height: Responsive.height * 0.05,
-      width: Responsive.width * 0.7,
+      width: Responsive.width * 0.82,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16), color: Colors.grey.shade400),
       child: const Padding(

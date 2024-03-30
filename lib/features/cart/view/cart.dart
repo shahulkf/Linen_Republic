@@ -107,16 +107,27 @@ class CartPage extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(15),
-                                          color: Colors.amber,
+                                          color: Colors.black,
                                         ),
-                                        child: Row(
+                                        child: const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(
-                                                  Icons.remove,
-                                                  size: 10,
-                                                )),
+                                            Icon(
+                                              Icons.remove,
+                                              size: 15,
+                                              color: Colors.white,
+                                            ),
+                                            Text(
+                                              '1',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            Icon(
+                                              Icons.add,
+                                              size: 15,
+                                              color: Colors.white,
+                                            )
                                           ],
                                         ),
                                       ),
@@ -144,63 +155,70 @@ class CartPage extends StatelessWidget {
                       );
                     }),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: Responsive.height * 0.06,
-                    width: Responsive.width * 0.3,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Total :',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
+              Container(
+                height: Responsive.height * 0.11,
+                width: Responsive.width * 0.95,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'No of Items :',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
+                          Text(
+                            '4',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          )
+                        ],
                       ),
-                    ),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Total Amount :',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.white),
+                          ),
+                          Text('${AppStrings.rupee} 2000',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white))
+                        ],
+                      ),
+                    ],
                   ),
-                  // Container(
-                  //   height: Responsive.height * 0.06,
-                  //   width: Responsive.width * 0.6,
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.black,
-                  //     borderRadius: BorderRadius.circular(15),
-                  //   ),
-                  //   child: const Center(
-                  //     child: Text(
-                  //       'Proceed to Payment',
-                  //       style: TextStyle(
-                  //           color: Colors.white,
-                  //           fontWeight: FontWeight.bold,
-                  //           fontSize: 16),
-                  //     ),
-                  //   ),
-                  // ),
-                  Expanded(
-                    child: SlideAction(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      sliderButtonIconPadding: 6,
-                      innerColor: Colors.white,
-                      outerColor: Colors.black,
-                      borderRadius: 12,
-                      text: 'Swipe to Payment >>',
-                      textStyle: const TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                      sliderButtonIcon: const Icon(Icons.shopping_bag_outlined),
-                      sliderRotate: false,
-                      onSubmit: () {
-                        return null;
-                      },
-                    ),
-                  ),
-                ],
+                ),
+              ),
+              height10,
+              SlideAction(
+                height: MediaQuery.of(context).size.height * 0.06,
+                sliderButtonIconPadding: 6,
+                sliderButtonYOffset: -2,
+                innerColor: Colors.white,
+                outerColor: Colors.black,
+                borderRadius: 12,
+                text: 'Swipe to Payment >>',
+                textStyle: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+                sliderButtonIcon: const Icon(Icons.payment_outlined),
+                sliderRotate: false,
+                onSubmit: () {
+                  return null;
+                },
               )
             ],
           ),

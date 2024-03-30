@@ -20,16 +20,25 @@ class ProductViewWidget extends StatelessWidget {
             10,
           ),
           elevation: 10,
-          child: Container(
-            height: 200,
-            width: 160,
-            decoration: BoxDecoration(
-                color: colorGrey6,
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: NetworkImage(product.image.first),
-                  fit: BoxFit.cover,
-                )),
+          child: Stack(
+            children: [
+              Container(
+                height: 200,
+                width: 160,
+                decoration: BoxDecoration(
+                    color: colorGrey6,
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: NetworkImage(product.image.first),
+                      fit: BoxFit.cover,
+                    )),
+              ),
+              Positioned(
+                right: 0,
+                child: IconButton(
+                    onPressed: () {}, icon: const Icon(Icons.favorite_border)),
+              ),
+            ],
           ),
         ),
         height10,
