@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:linen_republic/constants/constants.dart';
+import 'package:linen_republic/features/account/view/address/view_address.dart';
 import 'package:linen_republic/features/authentication/view/login/login_screen.dart';
 import 'package:linen_republic/utils/responsive/responsive.dart';
 
@@ -110,7 +111,13 @@ class AccountPage extends StatelessWidget {
                         height10,
                         const Divider(),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ViewAddressPage(),
+                                ));
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

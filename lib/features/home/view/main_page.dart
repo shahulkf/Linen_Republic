@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linen_republic/features/account/view/account.dart';
+import 'package:linen_republic/features/account/view/accounts/account.dart';
 import 'package:linen_republic/features/cart/view/cart.dart';
 import 'package:linen_republic/features/home/view/home_screen.dart';
 import 'package:linen_republic/features/home/widgets/bottom_nav.dart';
