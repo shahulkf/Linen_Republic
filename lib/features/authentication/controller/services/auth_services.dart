@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,6 +15,14 @@ class AuthenticationServices implements AuthenticationRepository {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: signUpModel.email, password: signUpModel.password);
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(_auth.currentUser!.uid)
+          .set({
+        'username': signUpModel.userName,
+        'email': signUpModel.email,
+        'id': _auth.currentUser!.uid
+      });
       return right('success');
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
@@ -56,8 +65,6 @@ class AuthenticationServices implements AuthenticationRepository {
 
   @override
   Future<Either<String, String>> googleAuth() async {
-    // TODO: implement googleAuth
-
     try {
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
@@ -66,6 +73,14 @@ class AuthenticationServices implements AuthenticationRepository {
           accessToken: gAuth.accessToken, idToken: gAuth.idToken);
 
       await _auth.signInWithCredential(credential);
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(_auth.currentUser!.uid)
+          .set({
+        'username': _auth.currentUser!.displayName,
+        'email': _auth.currentUser!.email,
+        'id': _auth.currentUser!.uid,
+      });
       return right('Google Signed In Successfully ');
     } on FirebaseAuthException catch (e) {
       return left(e.message.toString());

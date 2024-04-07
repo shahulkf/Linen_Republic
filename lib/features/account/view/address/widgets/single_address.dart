@@ -1,15 +1,18 @@
 import 'package:bottom_bar_matu/components/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:linen_republic/constants/constants.dart';
+import 'package:linen_republic/features/account/model/address/address_model.dart';
 
 import '../../../../../utils/responsive/responsive.dart';
 
 class SingleAddressWidget extends StatelessWidget {
   const SingleAddressWidget({
+    required this.addresses,
     required this.selectedAddress,
     super.key,
   });
   final bool selectedAddress;
+  final AddressModel addresses;
 
   @override
   Widget build(BuildContext context) {
@@ -33,25 +36,26 @@ class SingleAddressWidget extends StatelessWidget {
                   : Icons.circle_outlined,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(10.0),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 height20,
                 Text(
-                  'Sulaiman',
+                  addresses.fullName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 Text(
-                  '7709805030',
+                  addresses.phoneNumber,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  '82356 Timmy Coves ,South Asia , Miami 87665, ',
+                  "  ${addresses.pincode} ${addresses.city}${addresses.state} ${addresses.locality} ${addresses.flatNo}${addresses.landmark}${addresses.typeOfAddress}",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),

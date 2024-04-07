@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:linen_republic/features/account/controller/bloc/bloc/address_bloc.dart';
+import 'package:linen_republic/features/account/controller/services/address_services.dart';
 import 'package:linen_republic/features/authentication/controller/bloc/bloc/auth_bloc.dart';
 import 'package:linen_republic/features/authentication/controller/services/auth_services.dart';
 import 'package:linen_republic/features/home/view/main_page.dart';
@@ -32,6 +34,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ProductBloc(ProductServices()),
+        ),
+        BlocProvider(
+          create: (context) => AddressBloc(AddressService()),
         ),
       ],
       child: MaterialApp(

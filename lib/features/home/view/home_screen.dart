@@ -1,9 +1,11 @@
+import 'package:bottom_bar_matu/components/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:linen_republic/constants/colors/colors.dart';
 import 'package:linen_republic/constants/constants.dart';
+import 'package:linen_republic/features/home/view/search/search_page.dart';
 import 'package:linen_republic/features/home/widgets/banner_widget.dart';
 import 'package:linen_republic/features/home/widgets/product_view_widget.dart';
 import 'package:linen_republic/features/product/controller/bloc/product/product_bloc.dart';
@@ -25,7 +27,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              _buildSearchWidget(),
+              _buildSearchWidget(context),
               const Spacer(),
               _buildWishlistButton(),
               width5
@@ -138,26 +140,36 @@ class HomePage extends StatelessWidget {
         ));
   }
 
-  Container _buildSearchWidget() {
-    return Container(
-      height: Responsive.height * 0.05,
-      width: Responsive.width * 0.82,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16), color: Colors.grey.shade400),
-      child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Search your Product',
-              style: TextStyle(color: Colors.white70),
-            ),
-            Icon(
-              CupertinoIcons.search,
-              color: Colors.white70,
-            )
-          ],
+  Widget _buildSearchWidget(context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (context) => const SearchScreen(),
+          ),
+        );
+      },
+      child: Container(
+        height: Responsive.height * 0.05,
+        width: Responsive.width * 0.82,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16), color: colorGrey6),
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Search your Product . . ',
+                style: TextStyle(color: colorGrey5),
+              ),
+              Icon(
+                CupertinoIcons.search,
+                color: colorGrey5,
+              )
+            ],
+          ),
         ),
       ),
     );

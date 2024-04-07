@@ -115,7 +115,7 @@ class AccountPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const ViewAddressPage(),
+                                  builder: (context) => ViewAddressPage(),
                                 ));
                           },
                           child: Row(
