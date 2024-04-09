@@ -5,7 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linen_republic/constants/app_strings/app_strings.dart';
 import 'package:linen_republic/constants/colors/colors.dart';
 import 'package:linen_republic/constants/constants.dart';
+import 'package:linen_republic/features/cart/bloc/bloc/cart_bloc.dart';
+import 'package:linen_republic/features/cart/model/cartmodel.dart';
 import 'package:linen_republic/features/home/model/product_model.dart';
+import 'package:linen_republic/features/home/widgets/bottom_nav.dart';
 import 'package:linen_republic/features/product/controller/bloc/product/product_bloc.dart';
 import 'package:linen_republic/features/product/model/product_model.dart';
 import 'package:linen_republic/utils/responsive/responsive.dart';
@@ -33,16 +36,25 @@ class ProductDetailScreen extends StatelessWidget {
     });
     return WillPopScope(
       onWillPop: () async {
-        context.read<ProductBloc>().add(FetchProductsEvent());
+        context
+            .read<ProductBloc>()
+            .add(FetchProductsEvent(category: categories[0]));
         return true;
       },
       child: Scaffold(
         appBar: AppBar(actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+                indexChangeNotifier.value = 2;
+              },
               icon: const Icon(Icons.favorite_border_rounded)),
           IconButton(
-              onPressed: () {}, icon: const Icon(Icons.shopping_bag_outlined))
+              onPressed: () {
+                Navigator.pop(context);
+                indexChangeNotifier.value = 1;
+              },
+              icon: const Icon(Icons.shopping_bag_outlined))
         ]),
         body: SingleChildScrollView(
           child: Padding(
@@ -176,6 +188,21 @@ class ProductDetailScreen extends StatelessWidget {
                             const Icon(Icons.shopping_bag_outlined),
                         sliderRotate: false,
                         onSubmit: () {
+                          final cartModel = CartModel(
+                              productId: product.id!,
+                              name: product.title,
+                              price: product.price.toString(),
+                              quantity: 1.toString(),
+                              description: product.description,
+                              imageUrl: product.image,
+                              stock: (product.small +
+                                      product.large +
+                                      product.medium +
+                                      product.xl)
+                                  .toString());
+                          context
+                              .read<CartBloc>()
+                              .add(ProductAddToCart(cartModel: cartModel));
                           return null;
                         },
                       ),

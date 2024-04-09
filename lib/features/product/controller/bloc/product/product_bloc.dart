@@ -10,8 +10,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<FetchProductsEvent>((event, emit) async {
       emit(ProductFetchLoadingState());
       final response = await productRepo.getProducts();
-      response.fold((l) => emit(ProductFetchErrorState(message: l)),
-          (r) => emit(ProductFetchSuccessState(products: r)));
+
+      response.fold((l) => emit(ProductFetchErrorState(message: l)), (r) {
+        final sorted =
+            r.where((element) => element.category == event.category).toList();
+        emit(ProductFetchSuccessState(products: sorted.isEmpty ? r : sorted));
+      });
     });
     on<SelectSizeEvent>((event, emit) {
       final available = event.sizeWithQuantity[event.size] ?? 0;

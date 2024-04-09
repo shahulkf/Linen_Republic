@@ -6,10 +6,15 @@ import 'package:linen_republic/features/account/controller/bloc/bloc/address_blo
 import 'package:linen_republic/features/account/controller/services/address_services.dart';
 import 'package:linen_republic/features/authentication/controller/bloc/bloc/auth_bloc.dart';
 import 'package:linen_republic/features/authentication/controller/services/auth_services.dart';
+import 'package:linen_republic/features/cart/bloc/bloc/cart_bloc.dart';
+import 'package:linen_republic/features/cart/controller/cart_services/cart_services.dart';
+import 'package:linen_republic/features/home/controller/bloc/search_bloc.dart';
 import 'package:linen_republic/features/home/view/main_page.dart';
 import 'package:linen_republic/features/onboard1/view/onboardscreen1.dart';
 import 'package:linen_republic/features/product/controller/bloc/product/product_bloc.dart';
 import 'package:linen_republic/features/product/controller/product_services/product_services.dart';
+import 'package:linen_republic/features/wishlist/controller/bloc/bloc/wishlist_bloc.dart';
+import 'package:linen_republic/features/wishlist/controller/wishlist_services/wishlist_services.dart';
 import 'package:linen_republic/firebase_options.dart';
 import 'package:linen_republic/utils/responsive/responsive.dart';
 
@@ -37,6 +42,15 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AddressBloc(AddressService()),
+        ),
+        BlocProvider(
+          create: (context) => WishlistBloc(WishListServices()),
+        ),
+        BlocProvider(
+          create: (context) => SearchBloc(ProductServices()),
+        ),
+        BlocProvider(
+          create: (context) => CartBloc(CartServices()),
         ),
       ],
       child: MaterialApp(

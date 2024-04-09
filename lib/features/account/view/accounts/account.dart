@@ -1,4 +1,5 @@
 import 'package:bottom_bar_matu/components/colors.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:linen_republic/constants/constants.dart';
 import 'package:linen_republic/features/account/view/address/view_address.dart';
 import 'package:linen_republic/features/authentication/view/login/login_screen.dart';
+import 'package:linen_republic/features/home/widgets/bottom_nav.dart';
 import 'package:linen_republic/utils/responsive/responsive.dart';
 
 class AccountPage extends StatelessWidget {
@@ -26,31 +28,53 @@ class AccountPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  height: Responsive.height * 0.12,
-                  width: Responsive.width * 1,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: colorGrey4),
-                    color: colorGrey7,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'User Name',
-                        style:
-                            GoogleFonts.prata(color: colorGrey1, fontSize: 20),
-                      ),
-                      Text(
-                        'username123@gmail.com',
-                        style:
-                            GoogleFonts.prata(color: colorGrey1, fontSize: 12),
-                      ),
-                    ],
-                  ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FutureBuilder<DocumentSnapshot>(
+                      future: FirebaseFirestore.instance
+                          .collection('Users')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .get(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          String? username = snapshot.data?.get('username');
+                          return Container(
+                            height: Responsive.height * 0.12,
+                            width: Responsive.width * 1,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: colorGrey4),
+                              color: colorGrey7,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  username ?? 'Username not found',
+                                  style: GoogleFonts.prata(
+                                      color: colorGrey1, fontSize: 20),
+                                ),
+                                Text(
+                                  FirebaseAuth.instance.currentUser!.email ??
+                                      'username123@gmail.com',
+                                  style: GoogleFonts.prata(
+                                      color: colorGrey1, fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ],
                 ),
-                height30,
+                height10,
                 Container(
                   height: Responsive.height * 0.27,
                   width: Responsive.width * 1,
@@ -96,7 +120,9 @@ class AccountPage extends StatelessWidget {
                         height10,
                         const Divider(),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            indexChangeNotifier.value = 2;
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -115,7 +141,7 @@ class AccountPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ViewAddressPage(),
+                                  builder: (context) => const ViewAddressPage(),
                                 ));
                           },
                           child: Row(

@@ -3,21 +3,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:linen_republic/constants/colors/colors.dart';
 import 'package:linen_republic/constants/constants.dart';
 import 'package:linen_republic/features/home/view/search/search_page.dart';
 import 'package:linen_republic/features/home/widgets/banner_widget.dart';
+import 'package:linen_republic/features/home/widgets/bottom_nav.dart';
 import 'package:linen_republic/features/home/widgets/product_view_widget.dart';
 import 'package:linen_republic/features/product/controller/bloc/product/product_bloc.dart';
 import 'package:linen_republic/features/product/view/product_details.dart';
 import 'package:linen_republic/utils/responsive/responsive.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int selectedIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    context.read<ProductBloc>().add(FetchProductsEvent());
+    context
+        .read<ProductBloc>()
+        .add(FetchProductsEvent(category: categories[0]));
     return Scaffold(
         appBar: AppBar(
             leading: const Padding(
@@ -40,7 +49,10 @@ class HomePage extends StatelessWidget {
               height20,
               _buildCategoryTitle(),
               height10,
-              _buildCategories(),
+              _buildCategories(categories, selectedIndex, (value) {
+                selectedIndex = value;
+                setState(() {});
+              }),
               height30,
               _buildProductViewWidget()
             ],
@@ -99,32 +111,34 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  SizedBox _buildCategories() {
+  // SizedBox _buildCategories() {
+  SizedBox _buildCategories(List<String> categories, int selectedIndex,
+      ValueChanged<int> onSelected) {
+    final debounce = Debouncer(delay: 1);
     return SizedBox(
       height: 50,
-      width: double.infinity,
-      child: ListView.builder(
-        itemCount: 4,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: 100,
-              decoration: BoxDecoration(
-                  color:
-                      index == 1 ? ConstColor.blackColor : ConstColor.greyColor,
-                  borderRadius: BorderRadius.circular(25)),
-              child: Center(
-                  child: Text(
-                categories[index],
-                style: TextStyle(
-                  color: index == 1 ? Colors.white : ConstColor.blackColor,
-                ),
-              )),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: List.generate(categories.length, (index) {
+          return ChoiceChip(
+            label: Text(
+              categories[index],
+              style: TextStyle(
+                color: index == selectedIndex ? Colors.white : Colors.black,
+              ),
             ),
+            selected: selectedIndex == index,
+            selectedColor: index == selectedIndex ? Colors.black : null,
+            onSelected: (selected) {
+              onSelected(index);
+              debounce.run(() {
+                context
+                    .read<ProductBloc>()
+                    .add(FetchProductsEvent(category: categories[index]));
+              });
+            },
           );
-        },
+        }),
       ),
     );
   }
@@ -133,7 +147,9 @@ class HomePage extends StatelessWidget {
 
   IconButton _buildWishlistButton() {
     return IconButton(
-        onPressed: () {},
+        onPressed: () {
+          indexChangeNotifier.value = 2;
+        },
         icon: const Icon(
           Icons.favorite_border,
           size: 30,

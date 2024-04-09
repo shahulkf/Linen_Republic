@@ -3,4 +3,5 @@ import 'package:linen_republic/features/home/model/product_model.dart';
 
 abstract class ProductRepository {
   Future<Either<String, List<ProductModel>>> getProducts();
+  Future<Either<String, List<ProductModel>>> searchProducts(String query);
 }

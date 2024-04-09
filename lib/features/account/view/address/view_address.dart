@@ -22,32 +22,26 @@ class ViewAddressPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              BlocBuilder<AddressBloc, AddressState>(
-                builder: (context, state) {
-                  if (state is GetAddressSuccessState) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: state.adresses.length,
-                      itemBuilder: (context, index) {
-                        return SingleAddressWidget(
-                          addresses: state.adresses[index],
-                          selectedAddress: index == 1,
-                        );
-                      },
-                    );
-                  } else if (state is GetAddressErrorState) {
-                    return Center(child: Text(state.message));
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
+        child: BlocBuilder<AddressBloc, AddressState>(
+          builder: (context, state) {
+            if (state is GetAddressSuccessState) {
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: state.adresses.length,
+                itemBuilder: (context, index) {
+                  return SingleAddressWidget(
+                    addresses: state.adresses[index],
+                    selectedAddress: index == 1,
+                  );
                 },
-              ),
-            ],
-          ),
+              );
+            } else if (state is GetAddressErrorState) {
+              return Center(child: Text(state.message));
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(

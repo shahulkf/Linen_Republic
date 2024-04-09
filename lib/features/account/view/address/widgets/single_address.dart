@@ -1,4 +1,5 @@
 import 'package:bottom_bar_matu/components/colors.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:linen_republic/constants/constants.dart';
 import 'package:linen_republic/features/account/model/address/address_model.dart';
@@ -19,7 +20,7 @@ class SingleAddressWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       width: Responsive.width * 1,
-      height: Responsive.height * 0.20,
+      height: Responsive.height * 0.3,
       decoration: BoxDecoration(
         color: selectedAddress ? colorGrey5 : colorGrey7,
         border: Border.all(color: colorGrey4),
@@ -55,8 +56,7 @@ class SingleAddressWidget extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  "  ${addresses.pincode} ${addresses.city}${addresses.state} ${addresses.locality} ${addresses.flatNo}${addresses.landmark}${addresses.typeOfAddress}",
-                  maxLines: 2,
+                  '${addresses.locality}\n${addresses.city}\n${addresses.state}\n${addresses.pincode}\n${addresses.flatNo}\n${addresses.landmark}\n${addresses.typeOfAddress}',
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

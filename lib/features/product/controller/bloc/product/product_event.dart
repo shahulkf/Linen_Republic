@@ -2,7 +2,12 @@ part of 'product_bloc.dart';
 
 class ProductEvent {}
 
-class FetchProductsEvent extends ProductEvent {}
+class FetchProductsEvent extends ProductEvent {
+  final String category;
+
+  FetchProductsEvent({required this.category});
+  
+}
 
 class SelectSizeEvent extends ProductEvent {
   String size;
@@ -12,3 +17,4 @@ class SelectSizeEvent extends ProductEvent {
     required this.sizeWithQuantity,
   });
 }
+

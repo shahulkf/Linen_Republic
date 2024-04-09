@@ -17,4 +17,32 @@ class ProductServices implements ProductRepository {
       return left(e.toString());
     }
   }
+
+  // import 'package:cloud_firestore/cloud_firestore.dart';
+  @override
+  Future<Either<String, List<ProductModel>>> searchProducts(
+      String query) async {
+    try {
+      QuerySnapshot querySnapshot;
+
+      if (query.isNotEmpty) {
+        // If a query is provided, perform a search based on the product name
+        querySnapshot = await firebase
+            .collection('products')
+            .where('name', isEqualTo: query)
+            .get();
+      } else {
+        // Otherwise, fetch all products
+        querySnapshot = await firebase.collection('products').get();
+      }
+
+      final products = querySnapshot.docs
+          .map((e) => ProductModel.fromMap(e.data() as Map<String, dynamic>))
+          .toList();
+
+      return right(products);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
 }

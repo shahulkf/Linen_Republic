@@ -3,15 +3,17 @@ class ProductModel {
   String title;
   String description;
   num price;
-  int? id;
+  String? id;
   int small;
   int medium;
   int large;
   int xl;
+  String category;
 
   ProductModel(
       {required this.image,
       required this.title,
+      required this.category,
       required this.description,
       required this.price,
       this.id,
@@ -21,6 +23,7 @@ class ProductModel {
       required this.xl});
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
+        id: map['id'],
         image: (map['images'] as List).map((e) => e.toString()).toList(),
         title: map['name'],
         description: map['description'],
@@ -28,6 +31,9 @@ class ProductModel {
         small: map['sizeWithQuantity']['S'],
         medium: map['sizeWithQuantity']['M'],
         large: map['sizeWithQuantity']['L'],
-        xl: map['sizeWithQuantity']['XL']);
+        xl: map['sizeWithQuantity']['XL'],
+        category: map['category']
+        );
+
   }
 }
