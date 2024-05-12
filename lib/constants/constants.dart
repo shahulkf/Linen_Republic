@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:linen_republic/features/home/model/product_model.dart';
-import 'package:linen_republic/utils/responsive/responsive.dart';
 
 const height10 = SizedBox(
   height: 10,
@@ -27,6 +25,9 @@ const width5 = SizedBox(
 );
 const width10 = SizedBox(
   width: 10,
+);
+const width20 = SizedBox(
+  width: 20,
 );
 
 const onBoardItems = [
@@ -66,3 +67,5 @@ final banners = [
 ];
 
 const categories = ['All', 'Classic', 'Vintage', 'Printed'];
+
+const textStyle = TextStyle(fontFamily: 'Prata');

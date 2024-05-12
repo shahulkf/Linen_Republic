@@ -121,9 +121,11 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List.generate(categories.length, (index) {
           return ChoiceChip(
+            checkmarkColor:
+                index == selectedIndex ? Colors.white : Colors.black,
             label: Text(
               categories[index],
-              style: TextStyle(
+              style: GoogleFonts.prata(
                 color: index == selectedIndex ? Colors.white : Colors.black,
               ),
             ),

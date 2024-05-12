@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:linen_republic/constants/constants.dart';
+import 'package:linen_republic/features/account/view/about/about_us.dart';
+import 'package:linen_republic/features/account/orders/orders.dart';
 import 'package:linen_republic/features/account/view/address/view_address.dart';
+import 'package:linen_republic/features/account/view/privacy/privacy_policy.dart';
+import 'package:linen_republic/features/account/view/terms_condition/terms_condtions.dart';
 import 'package:linen_republic/features/authentication/view/login/login_screen.dart';
 import 'package:linen_republic/features/home/widgets/bottom_nav.dart';
 import 'package:linen_republic/utils/responsive/responsive.dart';
@@ -76,7 +80,7 @@ class AccountPage extends StatelessWidget {
                 ),
                 height10,
                 Container(
-                  height: Responsive.height * 0.27,
+                  height: Responsive.height * 0.23,
                   width: Responsive.width * 1,
                   decoration: BoxDecoration(
                     color: colorGrey7,
@@ -89,23 +93,29 @@ class AccountPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
+                        // GestureDetector(
+                        //   onTap: () {},
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: [
+                        //       Text('Personal Details',
+                        //           style: GoogleFonts.prata(
+                        //               color: colorGrey2, fontSize: 19)),
+                        //       const Icon(Icons.chevron_right_outlined,
+                        //           size: 26, color: colorGrey2)
+                        //     ],
+                        //   ),
+                        // ),
+                        height20,
+                        // const Divider(),
                         GestureDetector(
-                          onTap: () {},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Personal Details',
-                                  style: GoogleFonts.prata(
-                                      color: colorGrey2, fontSize: 19)),
-                              const Icon(Icons.chevron_right_outlined,
-                                  size: 26, color: colorGrey2)
-                            ],
-                          ),
-                        ),
-                        height10,
-                        const Divider(),
-                        GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>  OrdersPage(),
+                                ));
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -141,7 +151,8 @@ class AccountPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const ViewAddressPage(),
+                                  builder: (context) => const ViewAddressPage(
+                                      key: ValueKey('address_page')),
                                 ));
                           },
                           child: Row(
@@ -175,7 +186,14 @@ class AccountPage extends StatelessWidget {
                     child: Column(
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PrivacyPolicyPage(),
+                                ));
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -187,10 +205,15 @@ class AccountPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        height10,
                         const Divider(),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const AboutUsPage(),
+                                ));
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -205,7 +228,14 @@ class AccountPage extends StatelessWidget {
                         height10,
                         const Divider(),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const TermsAndConditionsPage(),
+                                ));
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

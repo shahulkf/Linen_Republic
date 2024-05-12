@@ -2,17 +2,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linen_republic/features/account/controller/bloc/bloc/address_bloc.dart';
+import 'package:linen_republic/features/account/controller/bloc/address/address_bloc.dart';
+import 'package:linen_republic/features/account/controller/bloc/orders/orders_bloc.dart';
 import 'package:linen_republic/features/account/controller/services/address_services.dart';
+import 'package:linen_republic/features/account/controller/services/order_services.dart';
 import 'package:linen_republic/features/authentication/controller/bloc/bloc/auth_bloc.dart';
 import 'package:linen_republic/features/authentication/controller/services/auth_services.dart';
-import 'package:linen_republic/features/cart/bloc/bloc/cart_bloc.dart';
+import 'package:linen_republic/features/cart/controller/bloc/bloc/cart_bloc.dart';
 import 'package:linen_republic/features/cart/controller/cart_services/cart_services.dart';
+import 'package:linen_republic/features/checkout/controller/bloc/checkout_bloc.dart';
 import 'package:linen_republic/features/home/controller/bloc/search_bloc.dart';
 import 'package:linen_republic/features/home/view/main_page.dart';
 import 'package:linen_republic/features/onboard1/view/onboardscreen1.dart';
 import 'package:linen_republic/features/product/controller/bloc/product/product_bloc.dart';
 import 'package:linen_republic/features/product/controller/product_services/product_services.dart';
+import 'package:linen_republic/features/splash/controller/bloc/splash_bloc.dart';
+import 'package:linen_republic/features/splash/view/splash_screen.dart';
 import 'package:linen_republic/features/wishlist/controller/bloc/bloc/wishlist_bloc.dart';
 import 'package:linen_republic/features/wishlist/controller/wishlist_services/wishlist_services.dart';
 import 'package:linen_republic/firebase_options.dart';
@@ -52,6 +57,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => CartBloc(CartServices()),
         ),
+        BlocProvider(
+          create: (context) => CheckoutBloc(),
+        ),
+        BlocProvider(
+          create: (context) => OrdersBloc(OrderServices()),
+        ),
+        BlocProvider(create: (context) => SplashBloc()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -60,14 +72,19 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
             useMaterial3: true,
           ),
-          home: StreamBuilder<User?>(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return MainPage();
-                }
-                return OnboardScreenOne();
-              })),
+          home: const SplashScreen()
+
+          // StreamBuilder<User?>(
+          //     stream: FirebaseAuth.instance.authStateChanges(),
+          //     builder: (context, snapshot) {
+          //       if (snapshot.hasData) {
+          //         return MainPage();
+          //       }
+          //       // return OnboardScreenOne();
+          //       return SplashScreen();
+          //     })
+
+          ),
     );
   }
 }

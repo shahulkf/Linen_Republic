@@ -9,6 +9,7 @@ class AddressModel {
   String flatNo;
   String landmark;
   String typeOfAddress;
+  bool defaultAddress;
   AddressModel(
       {required this.fullName,
       required this.phoneNumber,
@@ -19,10 +20,12 @@ class AddressModel {
       required this.landmark,
       required this.locality,
       required this.typeOfAddress,
+      required this.defaultAddress,
       this.id});
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'Full Name': fullName,
       'Phone Number': phoneNumber,
       'pincode': pincode,
@@ -31,20 +34,24 @@ class AddressModel {
       'locality': locality,
       'Flat No': flatNo,
       'landmark': landmark,
-      'type of address': typeOfAddress
+      'type of address': typeOfAddress,
+      'default': defaultAddress,
     };
   }
 
   factory AddressModel.fromMap(Map<String, dynamic> map) {
     return AddressModel(
-        fullName: map['Full Name'],
-        phoneNumber: map['Phone Number'],
-        pincode: map['pincode'],
-        city: map['city'],
-        state: map['State'],
-        flatNo: map['Flat No'],
-        landmark: map['landmark'],
-        locality: map['locality'],
-        typeOfAddress: map['type of address']);
+      flatNo: map['Flat No'],
+      fullName: map['Full Name'],
+      id: map['id'],
+      phoneNumber: map['Phone Number'],
+      pincode: map['pincode'],
+      city: map['city'],
+      state: map['State'],
+      landmark: map['landmark'],
+      locality: map['locality'],
+      typeOfAddress: map['type of address'],
+      defaultAddress: map['default'] ?? false,
+    );
   }
 }

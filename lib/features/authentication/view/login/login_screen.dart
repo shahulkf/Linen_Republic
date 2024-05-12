@@ -12,10 +12,10 @@ import 'package:linen_republic/features/authentication/view/widgets/textfield.da
 import 'package:linen_republic/features/home/view/main_page.dart';
 import 'package:linen_republic/utils/responsive/responsive.dart';
 
-class LoginScreen extends StatelessWidget {
-  final formKey = GlobalKey<FormState>();
+final formKey = GlobalKey<FormState>();
 
-  LoginScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class LoginScreen extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  SignUpScreen(),
+                    builder: (context) => const SignUpScreen(),
                   ));
             },
             child: const Text('signUp')),

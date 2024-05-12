@@ -9,15 +9,14 @@ class AddressService implements AddressRepo {
   @override
   Future<Either<String, String>> addAddress(AddressModel addressModel) async {
     try {
-      final id = DateTime.now().microsecondsSinceEpoch.toString();
       await firebase
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('Address')
-          .doc(id)
+          .doc(addressModel.id)
           .set({
         ...addressModel.toMap(),
-        'id': id,
+        'id': addressModel.id,
       });
       return right('address added succesfully');
     } catch (e) {
@@ -38,6 +37,37 @@ class AddressService implements AddressRepo {
       return right(addresses);
     } catch (e) {
       return left(e.toString());
+    }
+  }
+
+  @override
+  Future<Either<String, String>> deleteAddress({required String id}) async {
+    try {
+      await firebase
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('Address')
+          .doc(id)
+          .delete();
+      return right('Address Delete Successfully');
+    } catch (e) {
+      return left('Something went Wrong $e');
+    }
+  }
+
+  @override
+  Future<Either<String, String>> updateAddress(
+      {required AddressModel addressModel}) async {
+    try {
+      await firebase
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('Address')
+          .doc(addressModel.id)
+          .update(addressModel.toMap());
+      return right('Address Edited Successfully');
+    } catch (e) {
+      return left('Something went Wrong');
     }
   }
 }

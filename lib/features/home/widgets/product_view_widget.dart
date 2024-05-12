@@ -4,10 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:linen_republic/constants/app_strings/app_strings.dart';
 import 'package:linen_republic/constants/colors/colors.dart';
 import 'package:linen_republic/constants/constants.dart';
 import 'package:linen_republic/features/home/model/product_model.dart';
+import 'package:linen_republic/features/home/widgets/wishlist_button.dart';
 import 'package:linen_republic/features/wishlist/controller/bloc/bloc/wishlist_bloc.dart';
 import 'package:linen_republic/features/wishlist/controller/wishlist_services/wishlist_services.dart';
 
@@ -91,12 +93,12 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
           widget.product.title,
           maxLines: 1,
           minFontSize: 16,
-          style: const TextStyle(
+          style: GoogleFonts.prata(
               fontSize: 19, fontWeight: FontWeight.bold, color: colorGrey3),
         ),
         AutoSizeText(
           widget.product.description,
-          style: const TextStyle(fontSize: 16, color: colorGrey3),
+          style: GoogleFonts.prata(fontSize: 16, color: colorGrey3),
           maxLines: 2,
         ),
         Text(
@@ -107,25 +109,6 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
               color: ConstColor.blackColor),
         ),
       ],
-    );
-  }
-}
-
-class WishlistButton extends StatelessWidget {
-  final bool isFavorite;
-  final VoidCallback onPressed;
-
-  const WishlistButton(
-      {super.key, required this.isFavorite, required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(
-        isFavorite ? Icons.favorite : Icons.favorite_border,
-        color: isFavorite ? Colors.red : ConstColor.blackColor,
-      ),
-      onPressed: onPressed,
     );
   }
 }

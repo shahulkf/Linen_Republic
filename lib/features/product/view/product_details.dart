@@ -2,10 +2,11 @@ import 'package:bottom_bar_matu/components/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:linen_republic/constants/app_strings/app_strings.dart';
 import 'package:linen_republic/constants/colors/colors.dart';
 import 'package:linen_republic/constants/constants.dart';
-import 'package:linen_republic/features/cart/bloc/bloc/cart_bloc.dart';
+import 'package:linen_republic/features/cart/controller/bloc/bloc/cart_bloc.dart';
 import 'package:linen_republic/features/cart/model/cartmodel.dart';
 import 'package:linen_republic/features/home/model/product_model.dart';
 import 'package:linen_republic/features/home/widgets/bottom_nav.dart';
@@ -85,7 +86,7 @@ class ProductDetailScreen extends StatelessWidget {
                 height10,
                 Text(
                   product.title,
-                  style: const TextStyle(
+                  style: GoogleFonts.prata(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: colorGrey1),
@@ -93,7 +94,7 @@ class ProductDetailScreen extends StatelessWidget {
                 height10,
                 Text(
                   '${AppStrings.rupee}${product.price}',
-                  style: const TextStyle(
+                  style: GoogleFonts.prata(
                       fontWeight: FontWeight.bold, fontSize: 22),
                 ),
                 height30,
@@ -101,16 +102,16 @@ class ProductDetailScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Select Size',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                      style: GoogleFonts.prata(
+                          fontSize: 20, fontWeight: FontWeight.w700),
                     ),
                     BlocBuilder<ProductBloc, ProductState>(
                       builder: (context, state) {
                         return Text(
                           'Quantity : ${state is SelectedSizeState ? state.available : 0}',
-                          style: const TextStyle(color: colorGrey5),
+                          style: GoogleFonts.prata(color: colorGrey5),
                         );
                       },
                     )
@@ -140,14 +141,15 @@ class ProductDetailScreen extends StatelessWidget {
                 height30,
                 const Divider(),
                 height10,
-                const Text(
+                Text(
                   'Product Description',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: GoogleFonts.prata(
+                      fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 height20,
                 Text(
                   product.description,
-                  style: const TextStyle(fontSize: 18, color: colorGrey4),
+                  style: GoogleFonts.prata(fontSize: 18, color: colorGrey4),
                 ),
                 height10,
                 const Divider(),
@@ -160,10 +162,10 @@ class ProductDetailScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.circular(12)),
-                      child: const Center(
+                      child: Center(
                           child: Text(
                         'Buy Now',
-                        style: TextStyle(
+                        style: GoogleFonts.prata(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                             color: Colors.white),
@@ -180,7 +182,7 @@ class ProductDetailScreen extends StatelessWidget {
                         outerColor: Colors.black,
                         borderRadius: 12,
                         text: 'Swipe to Bag >>',
-                        textStyle: const TextStyle(
+                        textStyle: GoogleFonts.prata(
                             fontSize: 15,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
@@ -257,9 +259,9 @@ class SizeCircularWidget extends StatelessWidget {
             child: Center(
                 child: Text(
               sizes[index],
-              style: TextStyle(
+              style: GoogleFonts.prata(
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: 17,
                 color: state is SelectedSizeState
                     ? state.selectedSize == sizes[index]
                         ? Colors.white

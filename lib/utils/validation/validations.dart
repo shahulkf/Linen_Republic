@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linen_republic/features/account/controller/bloc/bloc/address_bloc.dart';
+import 'package:linen_republic/features/account/controller/bloc/address/address_bloc.dart';
 import 'package:linen_republic/features/authentication/controller/bloc/bloc/auth_bloc.dart';
 
 String fieldIsEmpty(TextEditingController controller, context) {

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -74,6 +72,23 @@ class CartServices implements CartRepo {
       }
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  @override
+  Future<void> clearCart() async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .collection('cart')
+          .get();
+      for (var element in snapshot.docs) {
+        element.reference.delete();
+      }
+    } catch (e) {
+      throw Exception();
     }
   }
 }

@@ -1,16 +1,14 @@
-import 'dart:math';
-
 import 'package:bottom_bar_matu/components/colors.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:linen_republic/constants/app_strings/app_strings.dart';
 import 'package:linen_republic/constants/constants.dart';
-import 'package:linen_republic/features/cart/bloc/bloc/cart_bloc.dart';
+import 'package:linen_republic/features/cart/controller/bloc/bloc/cart_bloc.dart';
 import 'package:linen_republic/features/cart/controller/cart_services/cart_services.dart';
 import 'package:linen_republic/features/cart/model/cartmodel.dart';
+import 'package:linen_republic/features/checkout/view/checkout.dart';
 import 'package:linen_republic/utils/responsive/responsive.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 
@@ -48,8 +46,11 @@ class CartPage extends StatelessWidget {
                   builder: (context, state) {
                     if (state is FetchCartProductsSuccessState) {
                       if (state.cartItems.isEmpty) {
-                        return const Center(
-                          child: Text("Your cart is waiting to be filled"),
+                        return Center(
+                          child: Text(
+                            "Your cart is waiting to be filled",
+                            style: GoogleFonts.prata(fontSize: 18),
+                          ),
                         );
                       }
                       return ListView.builder(
@@ -66,21 +67,24 @@ class CartPage extends StatelessWidget {
                   },
                 ),
               ),
-              Container(
-                height: Responsive.height * 0.11,
-                width: Responsive.width * 0.95,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: BlocBuilder<CartBloc, CartState>(
-                    builder: (context, state) {
-                      if (state is FetchCartProductsSuccessState) {
-                        final total = getPrice(state.cartItems);
-                        final totalItems = getTotalItems(state.cartItems);
-                        return Column(
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  if (state is FetchCartProductsSuccessState) {
+                    if (state.cartItems.isEmpty) {
+                      return const SizedBox();
+                    }
+                    final total = getPrice(state.cartItems);
+                    final totalItems = getTotalItems(state.cartItems);
+                    return Container(
+                      height: Responsive.height * 0.11,
+                      width: Responsive.width * 0.95,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,31 +120,43 @@ class CartPage extends StatelessWidget {
                               ],
                             ),
                           ],
-                        );
-                      } else {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                    },
-                  ),
-                ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
               ),
               height10,
-              SlideAction(
-                height: MediaQuery.of(context).size.height * 0.06,
-                sliderButtonIconPadding: 6,
-                sliderButtonYOffset: -2,
-                innerColor: Colors.white,
-                outerColor: Colors.black,
-                borderRadius: 12,
-                text: 'Swipe to Payment >>',
-                textStyle: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-                sliderButtonIcon: const Icon(Icons.payment_outlined),
-                sliderRotate: false,
-                onSubmit: () {
-                  return null;
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  if (state is FetchCartProductsSuccessState &&
+                      state.cartItems.isEmpty) {
+                    return const SizedBox();
+                  }
+                  return SlideAction(
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    sliderButtonIconPadding: 6,
+                    sliderButtonYOffset: -2,
+                    innerColor: Colors.white,
+                    outerColor: Colors.black,
+                    borderRadius: 12,
+                    text: 'Swipe to Confirm Order >>',
+                    textStyle: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                    sliderButtonIcon: const Icon(Icons.payment_outlined),
+                    sliderRotate: false,
+                    onSubmit: () {
+                      return Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CheckOutPage(),
+                          ));
+                    },
+                  );
                 },
               )
             ],

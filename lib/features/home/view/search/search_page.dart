@@ -18,7 +18,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final String _searchQuery = '';
+  final String searchQuery = '';
   String? _selectedFilter;
   @override
   void initState() {
@@ -86,7 +86,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   PreferredSize _buildSearchBar() {
-    final debouncer = Debouncer(delay: 2);
+    final debouncer = Debouncer(delay: 500);
     return PreferredSize(
       preferredSize: const Size.fromHeight(60),
       child: AppBar(
@@ -164,6 +164,6 @@ class Debouncer {
 
   void run(VoidCallback action) {
     timer?.cancel();
-    timer = Timer(Duration(seconds: delay), action);
+    timer = Timer(Duration(milliseconds: delay), action);
   }
 }

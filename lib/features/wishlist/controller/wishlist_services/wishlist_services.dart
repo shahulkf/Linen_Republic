@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:linen_republic/features/home/model/product_model.dart';
 import 'package:linen_republic/features/wishlist/controller/wishlist_repo/wishlist_repo.dart';
 
-class WishListServices implements WishlistRepo{
+class WishListServices implements WishlistRepo {
   final _firebase = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
   // getfavoriteIds
@@ -38,6 +38,7 @@ class WishListServices implements WishlistRepo{
       return left(e.message.toString());
     }
   }
+
   @override
   Future<List<ProductModel>> getWishListProducts() async {
     final document =
@@ -59,6 +60,4 @@ class WishListServices implements WishlistRepo{
       return [];
     }
   }
-  
- 
 }

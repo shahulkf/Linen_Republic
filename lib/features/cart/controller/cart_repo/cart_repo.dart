@@ -9,4 +9,6 @@ abstract class CartRepo {
   Future<Either<String, String>> removeCart(String id);
 
   Future<Either<String, String>> updateCart(CartModel cartModel);
+
+  Future<void> clearCart();
 }

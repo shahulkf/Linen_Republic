@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:linen_republic/constants/constants.dart';
-import 'package:linen_republic/features/home/model/product_model.dart';
 import 'package:linen_republic/features/home/widgets/product_view_widget.dart';
 import 'package:linen_republic/features/product/view/product_details.dart';
 import 'package:linen_republic/features/wishlist/controller/bloc/bloc/wishlist_bloc.dart';
-import 'package:linen_republic/features/wishlist/controller/wishlist_services/wishlist_services.dart';
 
 class WishListPage extends StatelessWidget {
   const WishListPage({super.key});
@@ -26,6 +23,11 @@ class WishListPage extends StatelessWidget {
             child: BlocBuilder<WishlistBloc, WishlistState>(
                 builder: (context, state) {
               if (state is FetchWishListSuccessState) {
+                if (state.products.isEmpty) {
+                  return const Center(
+                    child: Text("Your WishList is waiting to be filled"),
+                  );
+                }
                 final productss = state.products;
                 return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -47,8 +49,13 @@ class WishListPage extends StatelessWidget {
                         child: ProductViewWidget(product: productss[index]));
                   },
                 );
-              } else if (state is FetchWishListErrorState) {
-                return Center(child: Text(state.message));
+              } else if (state is FetchWishListEmptyState) {
+               
+                return Center(
+                    child: Text(
+                  'Your WishList is waiting to be filled',
+                  style: GoogleFonts.prata(fontSize: 19),
+                ));
               } else {
                 return const Center(child: CircularProgressIndicator());
               }

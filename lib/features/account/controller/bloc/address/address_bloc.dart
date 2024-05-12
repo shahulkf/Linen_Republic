@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:linen_republic/features/account/controller/repository/address_repo.dart';
 import 'package:linen_republic/features/account/model/address/address_model.dart';
-import 'package:meta/meta.dart';
 
 part 'address_event.dart';
 part 'address_state.dart';
@@ -30,6 +29,21 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
 
     on<GetAddressEvent>((event, emit) async {
       emit(AddressLoadingState());
+      final response = await _addressRepo.getAddress();
+      response.fold((l) => emit(GetAddressErrorState(message: l)),
+          (r) => emit(GetAddressSuccessState(adresses: r)));
+    });
+
+    on<DeleteAddressEvent>(
+      (event, emit) async {
+        final response = await _addressRepo.deleteAddress(id: event.id);
+        response.fold((l) => emit(DeleteAddressErrorState(message: l)),
+            (r) => emit(DeleteAddressSuccessState(message: r)));
+      },
+    );
+    on<UpdateAddressEvent>((event, emit) async {
+      await _addressRepo.updateAddress(addressModel: event.addressModel);
+
       final response = await _addressRepo.getAddress();
       response.fold((l) => emit(GetAddressErrorState(message: l)),
           (r) => emit(GetAddressSuccessState(adresses: r)));

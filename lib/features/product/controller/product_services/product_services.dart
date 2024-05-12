@@ -29,7 +29,8 @@ class ProductServices implements ProductRepository {
         // If a query is provided, perform a search based on the product name
         querySnapshot = await firebase
             .collection('products')
-            .where('name', isEqualTo: query)
+            .where('nameLower', isGreaterThanOrEqualTo: query.toLowerCase())
+            .where('nameLower', isLessThan: '${query.toLowerCase()}z')
             .get();
       } else {
         // Otherwise, fetch all products
