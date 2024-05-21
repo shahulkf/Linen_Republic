@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:linen_republic/features/cart/controller/cart_repo/cart_repo.dart';
 import 'package:linen_republic/features/cart/model/cartmodel.dart';
+// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 part 'cart_event.dart';

@@ -113,7 +113,7 @@ class AccountPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>  OrdersPage(),
+                                  builder: (context) =>  const OrdersPage(),
                                 ));
                           },
                           child: Row(
@@ -303,7 +303,7 @@ class AccountPage extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
+                      builder: (context) => const LoginScreen(),
                     ),
                     (route) => false);
               },

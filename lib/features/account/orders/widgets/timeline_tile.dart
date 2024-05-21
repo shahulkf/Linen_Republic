@@ -7,6 +7,7 @@ class TimeLineTile extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
   final bool isPast;
+  // ignore: prefer_typing_uninitialized_variables
   final eventCard;
   const TimeLineTile(
       {super.key,

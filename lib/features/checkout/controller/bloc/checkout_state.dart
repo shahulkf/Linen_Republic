@@ -20,3 +20,8 @@ class CheckOutSuccess extends CheckoutState {
     required this.deliveryAddress,
   });
 }
+class CheckOutFailure extends CheckoutState{
+  final String error;
+
+  CheckOutFailure({required this.error});
+}

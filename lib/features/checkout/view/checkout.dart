@@ -10,6 +10,7 @@ import 'package:linen_republic/features/account/controller/bloc/orders/orders_bl
 import 'package:linen_republic/features/account/model/address/address_model.dart';
 import 'package:linen_republic/features/account/model/order/order_model.dart';
 import 'package:linen_republic/features/account/orders/orders.dart';
+import 'package:linen_republic/features/account/view/address/add_address.dart';
 import 'package:linen_republic/features/account/view/address/view_address.dart';
 import 'package:linen_republic/features/account/view/address/widgets/single_address.dart';
 import 'package:linen_republic/features/cart/controller/bloc/bloc/cart_bloc.dart';
@@ -231,26 +232,46 @@ class _CheckOutPageState extends State<CheckOutPage> {
                                   style: GoogleFonts.prata(
                                       fontWeight: FontWeight.bold),
                                 ),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ViewAddressPage(
-                                                    key: UniqueKey()),
-                                          ));
-                                    },
-                                    child: const Text(
-                                      'Change',
-                                    ))
+                                state.deliveryAddress == null
+                                    ? TextButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ViewAddressPage(),
+                                              ));
+                                        },
+                                        child: const Text('Add Address'),
+                                      )
+                                    : TextButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ViewAddressPage(
+                                                        key: UniqueKey()),
+                                              ));
+                                        },
+                                        child: const Text(
+                                          'Change',
+                                        ))
                               ],
                             ),
-                            SingleAddressWidget(
+                            if (state.deliveryAddress != null)
+                              SingleAddressWidget(
                                 buttonshow: false,
                                 addresses: state.deliveryAddress!,
                                 selectedAddress: true,
-                                onTap: () {}),
+                                onTap: () {},
+                              )
+                            else
+                              const Center(
+                                child: Text('Please add a delivery address'),
+                              ),
+
+                            
                           ],
                         );
                       } else {
@@ -402,10 +423,12 @@ class PaymentMethodWIdget extends StatelessWidget {
 class PriceShowWidget extends StatelessWidget {
   const PriceShowWidget({
     required this.label,
+    // ignore: non_constant_identifier_names
     required this.Price,
     super.key,
   });
   final String label;
+  // ignore: non_constant_identifier_names
   final String Price;
 
   @override

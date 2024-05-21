@@ -14,6 +14,7 @@ class CheckoutServices implements CheckoutRepository {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('cart')
           .get();
+      // ignore: void_checks
       return right(Void);
     } catch (e) {
       return left('l');

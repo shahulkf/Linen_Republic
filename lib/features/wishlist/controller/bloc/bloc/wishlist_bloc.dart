@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:linen_republic/features/home/model/product_model.dart';
 import 'package:linen_republic/features/wishlist/controller/wishlist_repo/wishlist_repo.dart';
+// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 part 'wishlist_event.dart';

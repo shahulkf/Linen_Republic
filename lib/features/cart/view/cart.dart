@@ -368,6 +368,7 @@ class _CartTileWidgetState extends State<CartTileWidget> {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Stock limit exceed")));
     }
+    // ignore: use_build_context_synchronously
     context.read<CartBloc>().add(CartProductsGetEvent());
   }
 }

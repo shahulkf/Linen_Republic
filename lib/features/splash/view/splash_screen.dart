@@ -30,9 +30,7 @@ class SplashScreen extends StatelessWidget {
           }
         },
         child: const Center(
-          child: Image(
-              image: AssetImage(
-                  'assets/62A2E7C0-F6A9-4DD0-B08E-D964DA098BE5.png')),
+          child: Image(image: AssetImage('assets/linen_threads.png')),
         ),
       ),
     );

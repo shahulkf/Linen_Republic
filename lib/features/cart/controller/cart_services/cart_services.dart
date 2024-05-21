@@ -53,6 +53,7 @@ class CartServices implements CartRepo {
 
   @override
   Future<Either<String, String>> updateCart(CartModel cartModel) {
+    // ignore: empty_catches
     try {} catch (e) {}
     throw UnimplementedError();
   }
@@ -71,6 +72,7 @@ class CartServices implements CartRepo {
             .update({'quantity': newQuantity.toString()});
       }
     } catch (e) {
+      // ignore: avoid_print
       print(e.toString());
     }
   }

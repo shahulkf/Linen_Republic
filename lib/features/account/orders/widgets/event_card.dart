@@ -4,6 +4,7 @@ import 'package:linen_republic/constants/colors/colors.dart';
 import 'package:linen_republic/utils/responsive/responsive.dart';
 
 class EventCard extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final child;
   final bool isPast;
   const EventCard({super.key, this.child, required this.isPast});

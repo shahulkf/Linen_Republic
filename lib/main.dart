@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +11,6 @@ import 'package:linen_republic/features/cart/controller/bloc/bloc/cart_bloc.dart
 import 'package:linen_republic/features/cart/controller/cart_services/cart_services.dart';
 import 'package:linen_republic/features/checkout/controller/bloc/checkout_bloc.dart';
 import 'package:linen_republic/features/home/controller/bloc/search_bloc.dart';
-import 'package:linen_republic/features/home/view/main_page.dart';
-import 'package:linen_republic/features/onboard1/view/onboardscreen1.dart';
 import 'package:linen_republic/features/product/controller/bloc/product/product_bloc.dart';
 import 'package:linen_republic/features/product/controller/product_services/product_services.dart';
 import 'package:linen_republic/features/splash/controller/bloc/splash_bloc.dart';
@@ -67,24 +64,12 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Linen Republic',
+          title: 'Linen Threads',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
             useMaterial3: true,
           ),
-          home: const SplashScreen()
-
-          // StreamBuilder<User?>(
-          //     stream: FirebaseAuth.instance.authStateChanges(),
-          //     builder: (context, snapshot) {
-          //       if (snapshot.hasData) {
-          //         return MainPage();
-          //       }
-          //       // return OnboardScreenOne();
-          //       return SplashScreen();
-          //     })
-
-          ),
+          home: const SplashScreen()),
     );
   }
 }

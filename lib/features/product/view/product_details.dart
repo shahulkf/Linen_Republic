@@ -154,62 +154,37 @@ class ProductDetailScreen extends StatelessWidget {
                 height10,
                 const Divider(),
                 height30,
-                Row(
-                  children: [
-                    Container(
-                      width: 100,
-                      height: MediaQuery.of(context).size.height * 0.065,
-                      decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Center(
-                          child: Text(
-                        'Buy Now',
-                        style: GoogleFonts.prata(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Colors.white),
-                      )),
-                    ),
-                    SizedBox(
-                      width: Responsive.width * 0.03,
-                    ),
-                    Expanded(
-                      child: SlideAction(
-                        height: MediaQuery.of(context).size.height * 0.065,
-                        sliderButtonIconPadding: 6,
-                        innerColor: Colors.white,
-                        outerColor: Colors.black,
-                        borderRadius: 12,
-                        text: 'Swipe to Bag >>',
-                        textStyle: GoogleFonts.prata(
-                            fontSize: 15,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                        sliderButtonIcon:
-                            const Icon(Icons.shopping_bag_outlined),
-                        sliderRotate: false,
-                        onSubmit: () {
-                          final cartModel = CartModel(
-                              productId: product.id!,
-                              name: product.title,
-                              price: product.price.toString(),
-                              quantity: 1.toString(),
-                              description: product.description,
-                              imageUrl: product.image,
-                              stock: (product.small +
-                                      product.large +
-                                      product.medium +
-                                      product.xl)
-                                  .toString());
-                          context
-                              .read<CartBloc>()
-                              .add(ProductAddToCart(cartModel: cartModel));
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
+                SlideAction(
+                  height: MediaQuery.of(context).size.height * 0.065,
+                  sliderButtonIconPadding: 6,
+                  innerColor: Colors.white,
+                  outerColor: Colors.black,
+                  borderRadius: 12,
+                  text: 'Swipe to Bag >>',
+                  textStyle: GoogleFonts.prata(
+                      fontSize: 15,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                  sliderButtonIcon: const Icon(Icons.shopping_bag_outlined),
+                  sliderRotate: false,
+                  onSubmit: () {
+                    final cartModel = CartModel(
+                        productId: product.id!,
+                        name: product.title,
+                        price: product.price.toString(),
+                        quantity: 1.toString(),
+                        description: product.description,
+                        imageUrl: product.image,
+                        stock: (product.small +
+                                product.large +
+                                product.medium +
+                                product.xl)
+                            .toString());
+                    context
+                        .read<CartBloc>()
+                        .add(ProductAddToCart(cartModel: cartModel));
+                    return null;
+                  },
                 )
               ],
             ),

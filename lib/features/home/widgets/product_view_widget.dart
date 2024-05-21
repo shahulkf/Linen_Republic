@@ -81,6 +81,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                           .addToWishlist(widget.product.id.toString());
                     }
                     getFavorite();
+                    // ignore: use_build_context_synchronously
                     context.read<WishlistBloc>().add(FetchWishListEvent());
                   },
                 ),

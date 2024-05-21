@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:linen_republic/features/home/model/product_model.dart';
 import 'package:linen_republic/features/product/controller/product_repo/product_repo.dart';
+// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 part 'search_event.dart';
